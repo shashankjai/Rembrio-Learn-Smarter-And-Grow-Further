@@ -14,8 +14,25 @@ export function createApp() {
   app.use(helmet());
   app.use(
     cors({
-      origin: env.clientUrl.split(',').map((o) => o.trim()),
-      methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const configured = env.clientUrl
+          .split(',')
+          .map((o) => o.trim().replace(/\/$/, ''))
+          .filter(Boolean);
+        const cleanOrigin = origin.replace(/\/$/, '');
+        if (
+          configured.includes('*') ||
+          configured.includes(cleanOrigin) ||
+          cleanOrigin.endsWith('.onrender.com') ||
+          cleanOrigin.includes('localhost')
+        ) {
+          return callback(null, true);
+        }
+        return callback(new Error(`CORS blocked for origin: ${origin}`));
+      },
+      credentials: true,
+      methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
   );

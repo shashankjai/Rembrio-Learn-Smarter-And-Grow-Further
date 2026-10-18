@@ -1,6 +1,10 @@
 // Centralised API client. Every request in the app goes through here.
 // Base URL: VITE_API_URL (e.g. https://api.example.com/api) or "/api" (proxied by Vite in dev).
-const BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+let rawBase = (import.meta.env.VITE_API_URL || '/api').trim().replace(/\/$/, '');
+if (rawBase && !rawBase.endsWith('/api') && rawBase.startsWith('http')) {
+  rawBase += '/api';
+}
+const BASE_URL = rawBase;
 const TOKEN_KEY = 'rembrio_token';
 
 export class ApiClientError extends Error {
