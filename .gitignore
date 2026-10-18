@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# secrets & local config
+.env
+.env.*
+!.env.example
+
+# uploads (private user documents)
+server/uploads/
+server/tests/.tmp-uploads/
+uploads/
+
+# build output & caches
+client/dist/
+dist/
+.vite/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.mongodb-binaries/

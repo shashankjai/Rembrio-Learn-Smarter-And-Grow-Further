@@ -1,0 +1,21 @@
+{
+  "name": "rembrio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rembrio — AI-powered personal learning assistant (React + Express + MongoDB + Gemini RAG)",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n server,client -c blue,cyan \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "start": "npm start --prefix server",
+    "build": "npm run build --prefix client",
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "npm test --prefix server",
+    "test:client": "npm test --prefix client",
+    "create-vector-index": "npm run create-vector-index --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
