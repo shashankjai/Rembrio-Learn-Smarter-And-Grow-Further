@@ -20,6 +20,13 @@ export function createApp() {
     })
   );
   app.use(express.json({ limit: '1mb' }));
+  app.get('/', (_req, res) => {
+    res.json({
+      success: true,
+      message: 'Rembrio API is running smoothly.',
+      health: '/api/health',
+    });
+  });
   app.use('/api', apiLimiter, routes);
   app.use(notFoundHandler);
   app.use(errorHandler);
