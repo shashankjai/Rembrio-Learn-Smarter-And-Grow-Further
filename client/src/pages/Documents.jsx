@@ -65,7 +65,7 @@ export default function Documents() {
           setDragging(false);
           if (!uploading) handleFile(e.dataTransfer.files?.[0]);
         }}
-        className={`rounded-lg border-2 border-dashed px-6 py-8 text-center transition-colors ${dragging ? 'border-secondary bg-secondary/5' : 'border-line bg-surface'}`}
+        className={`rounded-xl border-2 border-dashed px-6 py-8 text-center transition-colors ${dragging ? 'border-secondary bg-tint' : 'border-line bg-surface'}`}
       >
         <FileUp className="mx-auto size-8 text-secondary" aria-hidden="true" />
         <p className="mt-3 text-sm font-medium">Drag a PDF here, or</p>
@@ -99,11 +99,11 @@ export default function Documents() {
         <ul className="card divide-y divide-line">
           {documents.map((d) => (
             <li key={d.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 p-4">
-              <span className="grid size-10 shrink-0 place-items-center rounded-md bg-primary/5 text-primary">
+              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-tint text-secondary">
                 <FileText className="size-5" aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1 basis-56">
-                <Link to={`/documents/${d.id}`} className="block truncate font-medium text-primary hover:underline">
+                <Link to={`/documents/${d.id}`} className="block truncate font-medium text-secondary underline-offset-4 hover:underline">
                   {d.filename}
                 </Link>
                 <p className="mt-0.5 text-xs text-muted">

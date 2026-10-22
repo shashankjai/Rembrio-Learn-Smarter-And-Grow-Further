@@ -36,10 +36,10 @@ export default function Register() {
 
   return (
     <div className="container-page grid min-h-[calc(100vh-10rem)] place-items-center py-12">
-      <div className="w-full max-w-md">
-        <h1 className="text-2xl font-semibold">Create your account</h1>
+      <div className="card w-full max-w-md p-6 sm:p-8">
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">Create your account</h1>
         <p className="mt-1 text-muted">Start studying from your own documents.</p>
-        <form onSubmit={onSubmit} noValidate className="card mt-6 space-y-4 p-6">
+        <form onSubmit={onSubmit} noValidate className="mt-6 space-y-4">
           {serverError ? <Alert>{serverError}</Alert> : null}
           <TextField label="Name" autoComplete="name" value={form.name} onChange={set('name')} error={errors.name} />
           <TextField label="Email" type="email" autoComplete="email" value={form.email} onChange={set('email')} error={errors.email} placeholder="you@example.com" />

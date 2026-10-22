@@ -10,22 +10,22 @@ import { formatDate } from '../utils/format.js';
 function Citation({ c, index }) {
   const [open, setOpen] = useState(false);
   return (
-    <li className="rounded-md border border-line bg-surface">
+    <li className="rounded-lg border border-secondary/20 bg-tint">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] hover:bg-canvas"
+        className="flex min-h-11 w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] hover:bg-secondary/5"
       >
         <span className="grid size-5 shrink-0 place-items-center rounded-full bg-secondary text-[11px] font-bold text-white">{index + 1}</span>
-        <span className="min-w-0 flex-1 truncate font-medium text-primary">
+        <span className="min-w-0 flex-1 truncate font-mono text-xs font-medium text-secondary">
           {c.filename} · page {c.page}
         </span>
         {open ? <ChevronDown className="size-4 text-muted" aria-hidden="true" /> : <ChevronRight className="size-4 text-muted" aria-hidden="true" />}
       </button>
       {open ? (
         <div className="border-t border-line px-3 py-2.5">
-          <p className="border-l-2 border-accent pl-3 text-[13px] italic leading-relaxed text-muted">“{c.excerpt}”</p>
+          <p className="border-l-2 border-secondary pl-3 text-[13px] italic leading-relaxed text-muted">“{c.excerpt}”</p>
           {typeof c.score === 'number' ? <p className="mt-2 text-xs text-muted">Match score: {c.score.toFixed(2)}</p> : null}
         </div>
       ) : null}

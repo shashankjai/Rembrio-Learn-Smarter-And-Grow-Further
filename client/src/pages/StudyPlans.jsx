@@ -41,9 +41,9 @@ function CreatePlan({ ready, onCreated, onCancel }) {
 
   return (
     <form onSubmit={submit} className="card mb-6 space-y-4 p-5 sm:p-6">
-      <div role="tablist" aria-label="How to create the plan" className="inline-flex rounded-md border border-line p-0.5">
+      <div role="tablist" aria-label="How to create the plan" className="inline-flex rounded-lg border border-line p-0.5">
         {[['ai', 'Generate with AI'], ['manual', 'Write my own']].map(([key, label]) => (
-          <button key={key} type="button" role="tab" aria-selected={mode === key} onClick={() => setMode(key)} className={`rounded px-3 py-1.5 text-sm font-medium ${mode === key ? 'bg-primary text-white' : 'text-muted hover:text-primary'}`}>
+          <button key={key} type="button" role="tab" aria-selected={mode === key} onClick={() => setMode(key)} className={`min-h-11 rounded-md px-3 text-sm font-medium ${mode === key ? 'bg-primary text-white' : 'text-muted hover:text-secondary'}`}>
             {label}
           </button>
         ))}

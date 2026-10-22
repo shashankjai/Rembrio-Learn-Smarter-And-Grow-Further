@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Navigate, Outlet, useLocation } from 'react-router-dom';
 import {
+  ArrowUp,
   CalendarCheck,
   ChartColumn,
   ClipboardCheck,
@@ -13,7 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
-import Logo from './Logo.jsx';
+import Logo, { LogoMark } from './Logo.jsx';
 import { FullPageSpinner } from './ui/index.jsx';
 
 const SkipLink = () => (
@@ -31,9 +32,48 @@ export function PublicLayout() {
   const { user } = useAuth();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showTop, setShowTop] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const onLanding = pathname === '/';
 
   useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const updateScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.max(0, Math.min(1, window.scrollY / scrollable)) : 0);
+      setScrolled(window.scrollY > 4);
+      setShowTop(window.scrollY > 700);
+    };
+    updateScroll();
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    window.addEventListener('resize', updateScroll);
+    return () => {
+      window.removeEventListener('scroll', updateScroll);
+      window.removeEventListener('resize', updateScroll);
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!onLanding || !('IntersectionObserver' in window)) {
+      setActiveSection('');
+      return undefined;
+    }
+    const sections = ['features', 'how-it-works', 'privacy']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: '-20% 0px -65% 0px', threshold: [0, 0.2, 0.5, 0.8] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [onLanding]);
 
   const anchors = [
     ['Features', '/#features'],
@@ -44,13 +84,19 @@ export function PublicLayout() {
   return (
     <div className="flex min-h-screen flex-col">
       <SkipLink />
-      <header className="sticky top-0 z-30 border-b border-line bg-surface/95 backdrop-blur-sm">
-        <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} flex h-16 sm:h-20 items-center justify-between`}>
+      <div className="public-scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true" />
+      <header className={`public-header sticky top-0 z-30 border-b border-line bg-canvas ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} flex h-[72px] items-center justify-between`}>
           <Logo />
           {onLanding ? (
             <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
               {anchors.map(([label, href]) => (
-                <a key={href} href={href} className="rounded-md px-3 py-2 text-sm font-medium text-muted hover:text-primary">
+                <a
+                  key={href}
+                  href={href}
+                  aria-current={activeSection === href.split('#')[1] ? 'location' : undefined}
+                  className="public-anchor relative rounded-md px-3 py-3 text-sm font-medium text-muted hover:text-secondary"
+                >
                   {label}
                 </a>
               ))}
@@ -74,7 +120,7 @@ export function PublicLayout() {
           </div>
           <button
             type="button"
-            className="btn btn-ghost -mr-2 px-2 md:hidden"
+            className="btn btn-ghost -mr-2 size-11 px-2 md:hidden"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="public-menu"
@@ -84,11 +130,11 @@ export function PublicLayout() {
           </button>
         </div>
         {open ? (
-          <div id="public-menu" className="border-t border-line bg-surface md:hidden">
+          <div id="public-menu" className="public-menu-enter border-t border-line bg-canvas md:hidden">
             <div className="container-page flex flex-col gap-1 py-3">
               {onLanding
                 ? anchors.map(([label, href]) => (
-                    <a key={href} href={href} onClick={() => setOpen(false)} className="rounded-md px-3 py-2.5 text-sm font-medium text-ink hover:bg-canvas">
+                    <a key={href} href={href} onClick={() => setOpen(false)} className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-ink hover:bg-tint">
                       {label}
                     </a>
                   ))
@@ -112,41 +158,44 @@ export function PublicLayout() {
         ) : null}
       </header>
 
-      <main id="main" className="flex-1">
+      <main id="main" className="route-view flex-1">
         <Outlet />
       </main>
 
-      <footer className="border-t border-line bg-surface">
-        <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]`}>
-          <div>
-            <Logo />
-            <p className="mt-3 max-w-xs text-sm text-muted">Learn smarter. Know more.</p>
-            <p className="mt-2 max-w-xs text-sm text-muted">
-              An AI study assistant that answers from your own PDFs and shows where each answer came from.
-            </p>
+      <footer className="border-t border-line bg-canvas">
+        <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} flex flex-col justify-between gap-6 py-8 sm:flex-row sm:items-center`}>
+          <div className="flex items-center gap-3">
+            <LogoMark className="h-10 w-auto object-contain" />
+            <p className="text-xs text-muted">Designed with care. Built with code.</p>
           </div>
-          <nav aria-label="Product">
-            <p className="text-sm font-semibold text-primary">Product</p>
-            <ul className="mt-3 space-y-2 text-sm text-muted">
-              <li><a className="hover:text-primary" href="/#features">Features</a></li>
-              <li><a className="hover:text-primary" href="/#how-it-works">How it works</a></li>
-              <li><a className="hover:text-primary" href="/#privacy">Privacy &amp; limits</a></li>
-            </ul>
+          <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+            <a className="hover:text-secondary" href="/#features">Features</a>
+            <a className="hover:text-secondary" href="/#how-it-works">How it works</a>
+            <a className="hover:text-secondary" href="/#privacy">Privacy</a>
+            <Link className="hover:text-secondary" to="/login">Sign in</Link>
+            <Link className="hover:text-secondary" to="/register">Create account</Link>
           </nav>
-          <nav aria-label="Account">
-            <p className="text-sm font-semibold text-primary">Account</p>
-            <ul className="mt-3 space-y-2 text-sm text-muted">
-              <li><Link className="hover:text-primary" to="/login">Sign in</Link></li>
-              <li><Link className="hover:text-primary" to="/register">Create account</Link></li>
-            </ul>
-          </nav>
+          <button type="button" className="back-top-footer" aria-label="Back to top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <ArrowUp className="size-4" aria-hidden="true" />
+          </button>
         </div>
         <div className="border-t border-line">
-          <p className={`container-page ${onLanding ? 'max-w-7xl' : ''} py-4 text-xs text-muted`}>
-            © {new Date().getFullYear()} Rembrio. Built with React, Express, MongoDB and Google Gemini. AI answers can contain mistakes — verify important facts against the cited pages.
-          </p>
+          <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} flex flex-col gap-2 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between`}>
+            <p>© {new Date().getFullYear()} Rembrio. Built by <a className="text-secondary underline-offset-4 hover:underline" href="https://myportfolio-i6su.onrender.com">Shashank Jaiswal</a>.</p>
+            <p>AI answers can contain mistakes — verify important facts against the cited pages.</p>
+          </div>
         </div>
       </footer>
+      {showTop ? (
+        <button
+          type="button"
+          className="back-top-floating"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          <ArrowUp className="size-4" aria-hidden="true" />
+        </button>
+      ) : null}
     </div>
   );
 }
@@ -165,8 +214,8 @@ const NAV = [
 function SideNav({ onNavigate }) {
   const { user, logout } = useAuth();
   const item = ({ isActive }) =>
-    `flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
-      isActive ? 'bg-secondary/10 text-primary' : 'text-muted hover:bg-primary/5 hover:text-primary'
+    `app-nav-item relative flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+      isActive ? 'is-active bg-tint text-ink' : 'text-muted hover:bg-tint hover:text-ink'
     }`;
   return (
     <div className="flex h-full flex-col">
@@ -235,7 +284,7 @@ export function AppLayout() {
           </div>
         ) : null}
 
-        <main id="main" className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <main id="main" className="route-view mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
           <Outlet />
         </main>
       </div>

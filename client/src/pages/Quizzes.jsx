@@ -87,7 +87,7 @@ function Taking({ quiz, onSubmitted, onCancel }) {
                 {q.options.map((opt, oi) => {
                   const checked = answers[q.id] === oi;
                   return (
-                    <label key={oi} className={`flex cursor-pointer items-start gap-3 rounded-md border px-3 py-2.5 text-sm transition-colors ${checked ? 'border-secondary bg-secondary/5' : 'border-line hover:bg-canvas'}`}>
+                    <label key={oi} className={`flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 text-sm transition-colors ${checked ? 'border-secondary bg-tint' : 'border-line hover:bg-alt'}`}>
                       <input type="radio" name={`q-${q.id}`} checked={checked} onChange={() => setAnswers((a) => ({ ...a, [q.id]: oi }))} className="mt-0.5 size-4 accent-secondary" />
                       <span><span className="mr-1.5 font-semibold text-primary">{LETTERS[oi]}.</span>{opt}</span>
                     </label>
@@ -116,7 +116,7 @@ function Results({ quiz, result, onAgain, onRetake }) {
     <div>
       <div className="card p-6 text-center">
         <p className="text-sm text-muted">{quiz.title}</p>
-        <p className={`mt-2 text-5xl font-semibold tabular-nums ${good ? 'text-success-ink' : 'text-primary'}`}>{result.percentage}%</p>
+        <p className={`mt-2 font-display text-5xl font-semibold tabular-nums ${good ? 'text-success-ink' : 'text-primary'}`}>{result.percentage}%</p>
         <p className="mt-1 text-sm text-muted">{result.score} of {result.total} correct. This attempt has been saved to your progress.</p>
         <div className="mt-5 flex flex-wrap justify-center gap-2">
           <button type="button" className="btn btn-primary" onClick={onRetake}><RotateCcw className="size-4" aria-hidden="true" /> Retake</button>

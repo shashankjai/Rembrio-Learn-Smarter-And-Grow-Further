@@ -35,8 +35,8 @@ export default function Dashboard() {
 
       <div className="grid gap-3 sm:grid-cols-3">
         {ACTIONS.map(({ to, icon: Icon, title, text }) => (
-          <Link key={to} to={to} className="card group flex items-center gap-3 p-4 transition-colors hover:border-secondary/40">
-            <span className="grid size-10 shrink-0 place-items-center rounded-md bg-primary text-white">
+          <Link key={to} to={to} className="card card-hover group flex items-center gap-3 p-4">
+            <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-tint text-secondary">
               <Icon className="size-5" aria-hidden="true" />
             </span>
             <span className="min-w-0 flex-1">
@@ -72,7 +72,7 @@ export default function Dashboard() {
               {docs.slice(0, 4).map((d) => (
                 <li key={d.id} className="flex items-center gap-3 p-3.5">
                   <div className="min-w-0 flex-1">
-                    <Link to={`/documents/${d.id}`} className="block truncate text-sm font-medium text-primary hover:underline">{d.filename}</Link>
+                    <Link to={`/documents/${d.id}`} className="block truncate text-sm font-medium text-secondary underline-offset-4 hover:underline">{d.filename}</Link>
                     <p className="text-xs text-muted">{formatDate(d.createdAt)}</p>
                   </div>
                   <StatusBadge status={d.status} />

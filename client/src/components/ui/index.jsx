@@ -30,7 +30,7 @@ const ALERT_STYLES = {
   error: { box: 'border-danger/30 bg-danger/5 text-danger-ink', Icon: CircleAlert },
   success: { box: 'border-success/30 bg-success/5 text-success-ink', Icon: CheckCircle2 },
   warning: { box: 'border-warning/30 bg-warning/5 text-warning-ink', Icon: AlertTriangle },
-  info: { box: 'border-secondary/25 bg-secondary/5 text-primary', Icon: Info },
+  info: { box: 'border-secondary/25 bg-tint text-secondary', Icon: Info },
 };
 
 export function Alert({ variant = 'error', title, children, className = '', action }) {
@@ -54,7 +54,7 @@ export function PageHeader({ title, description, actions }) {
   return (
     <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
       <div className="min-w-0">
-        <h1 className="text-2xl font-semibold sm:text-[1.75rem]">{title}</h1>
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">{title}</h1>
         {description ? <p className="mt-1 max-w-2xl text-sm text-muted sm:text-base">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap gap-2">{actions}</div> : null}
@@ -66,7 +66,7 @@ export function EmptyState({ icon: Icon, title, children, action }) {
   return (
     <div className="flex flex-col items-center rounded-lg border border-dashed border-line bg-surface px-6 py-10 text-center">
       {Icon ? (
-        <span className="mb-3 grid size-10 place-items-center rounded-full bg-secondary/10 text-secondary">
+        <span className="mb-3 grid size-10 place-items-center rounded-full bg-tint text-secondary">
           <Icon className="size-5" aria-hidden="true" />
         </span>
       ) : null}
@@ -79,7 +79,7 @@ export function EmptyState({ icon: Icon, title, children, action }) {
 
 const STATUS = {
   ready: { label: 'Ready', cls: 'bg-success/10 text-success-ink' },
-  processing: { label: 'Processing', cls: 'bg-secondary/10 text-primary' },
+  processing: { label: 'Processing', cls: 'bg-tint text-secondary' },
   failed: { label: 'Failed', cls: 'bg-danger/10 text-danger-ink' },
 };
 
@@ -195,7 +195,7 @@ export function ConfirmDialog({ open, title, children, confirmLabel = 'Confirm',
       onClick={(e) => {
         if (e.target === ref.current && !busy) onCancel();
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-lg border border-line bg-surface p-0 text-ink shadow-pop backdrop:bg-primary/40"
+      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-xl border border-line bg-surface p-0 text-ink backdrop:bg-primary/35"
       aria-labelledby="confirm-title"
     >
       <div className="p-6">
@@ -220,8 +220,8 @@ export function ConfirmDialog({ open, title, children, confirmLabel = 'Confirm',
 export function StatTile({ label, value, hint }) {
   return (
     <div className="card p-4">
-      <p className="text-[13px] font-medium text-muted">{label}</p>
-      <p className="mt-1 text-2xl font-semibold tabular-nums text-primary">{value}</p>
+      <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted">{label}</p>
+      <p className="mt-1 font-display text-3xl font-semibold tabular-nums text-ink">{value}</p>
       {hint ? <p className="mt-0.5 text-xs text-muted">{hint}</p> : null}
     </div>
   );

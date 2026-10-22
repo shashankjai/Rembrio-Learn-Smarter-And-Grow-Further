@@ -6,7 +6,7 @@ function Inline({ nodes }) {
     if (n.type === 'italic') return <em key={i}>{n.value}</em>;
     if (n.type === 'code') {
       return (
-        <code key={i} className="rounded bg-primary/5 px-1 py-0.5 text-[0.9em]">
+        <code key={i} className="rounded bg-tint px-1 py-0.5 font-mono text-[0.9em]">
           {n.value}
         </code>
       );

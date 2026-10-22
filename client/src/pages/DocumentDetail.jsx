@@ -45,7 +45,7 @@ export default function DocumentDetail() {
   }
 
   const Back = (
-    <Link to="/documents" className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-primary">
+    <Link to="/documents" className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-secondary underline-offset-4 hover:underline">
       <ArrowLeft className="size-4" aria-hidden="true" /> All documents
     </Link>
   );

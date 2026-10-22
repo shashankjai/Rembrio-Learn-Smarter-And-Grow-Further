@@ -7,9 +7,8 @@ export function LogoMark({ className = 'h-10 sm:h-12 w-auto object-contain' }) {
 
 export default function Logo({ to = '/', className = 'h-10 sm:h-12 w-auto object-contain' }) {
   return (
-    <Link to={to} className="inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Rembrio home">
+    <Link to={to} className="inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary" aria-label="Rembrio home">
       <img src={logoImg} alt="Rembrio" className={className} />
     </Link>
   );
 }
-
