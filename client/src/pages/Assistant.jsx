@@ -252,7 +252,7 @@ export default function Assistant() {
               if (e.key === 'Enter' && !e.shiftKey) send(e);
             }}
             placeholder="Ask about your documents…"
-            className="input max-h-40 min-h-[2.75rem] resize-y"
+            className="input max-h-40 min-h-[2.75rem] resize-y py-[11px] leading-5"
             disabled={busy}
           />
           <button type="submit" className="btn btn-primary h-11 shrink-0" disabled={busy || !question.trim() || ready.length === 0}>
