@@ -45,7 +45,7 @@ export function PublicLayout() {
     <div className="flex min-h-screen flex-col">
       <SkipLink />
       <header className="sticky top-0 z-30 border-b border-line bg-surface/95 backdrop-blur-sm">
-        <div className="container-page flex h-16 sm:h-20 items-center justify-between">
+        <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} flex h-16 sm:h-20 items-center justify-between`}>
           <Logo />
           {onLanding ? (
             <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
@@ -117,7 +117,7 @@ export function PublicLayout() {
       </main>
 
       <footer className="border-t border-line bg-surface">
-        <div className="container-page grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
+        <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]`}>
           <div>
             <Logo />
             <p className="mt-3 max-w-xs text-sm text-muted">Learn smarter. Know more.</p>
@@ -142,7 +142,7 @@ export function PublicLayout() {
           </nav>
         </div>
         <div className="border-t border-line">
-          <p className="container-page py-4 text-xs text-muted">
+          <p className={`container-page ${onLanding ? 'max-w-7xl' : ''} py-4 text-xs text-muted`}>
             © {new Date().getFullYear()} Rembrio. Built with React, Express, MongoDB and Google Gemini. AI answers can contain mistakes — verify important facts against the cited pages.
           </p>
         </div>
