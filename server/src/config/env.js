@@ -21,7 +21,7 @@ export const env = {
 
   // AI
   geminiApiKey: process.env.GEMINI_API_KEY || '',
-  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite',
+  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.5-flash',
   embeddingModel: process.env.EMBEDDING_MODEL || 'gemini-embedding-001',
   // Must match numDimensions in the Atlas vector index definition.
   embeddingDimensions: num(process.env.EMBEDDING_DIMENSIONS, 768),
