@@ -165,7 +165,7 @@ export function PublicLayout() {
       <footer className="border-t border-line bg-canvas">
         <div className={`container-page ${onLanding ? 'max-w-7xl' : ''} flex flex-col justify-between gap-6 py-8 sm:flex-row sm:items-center`}>
           <div className="flex items-center gap-3">
-            <LogoMark className="h-10 w-auto object-contain" />
+            <LogoMark className="h-12 w-auto object-contain" />
             <p className="text-xs text-muted">Designed with care. Built with code.</p>
           </div>
           <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
@@ -266,7 +266,7 @@ export function AppLayout() {
 
       <div className="min-w-0">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line bg-surface px-4 lg:hidden">
-          <Logo to="/dashboard" className="h-10 w-auto object-contain" />
+          <Logo to="/dashboard" className="h-11 w-auto object-contain" />
           <button
             type="button"
             className="btn btn-ghost -mr-2 px-2"

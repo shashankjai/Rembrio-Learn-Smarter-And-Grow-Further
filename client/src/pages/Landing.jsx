@@ -92,7 +92,7 @@ export default function Landing() {
               Works with text-based PDFs. Scanned, image-only PDFs are not supported yet.
             </p>
           </div>
-          <div className="hero-art relative mx-auto aspect-[1.2/1] w-full max-w-[560px] overflow-hidden lg:max-w-[560px]" aria-hidden="false">
+          <div className="hero-art relative aspect-[1.15/1] w-full max-w-[500px] lg:max-w-[530px] overflow-hidden ml-auto mr-0 justify-self-end" aria-hidden="false">
             <img
               className="hero-art-image mix-blend-multiply"
               src="/images/rembrio-hero.png"

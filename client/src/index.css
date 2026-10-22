@@ -252,8 +252,9 @@
 .hero-art-image {
   position: absolute;
   top: 50%;
-  left: -117%;
-  width: 220%;
+  right: 0;
+  left: auto;
+  width: 100%;
   max-width: none;
   height: auto;
   mix-blend-mode: multiply;
