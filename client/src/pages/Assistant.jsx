@@ -218,7 +218,12 @@ export default function Assistant() {
       </details>
 
       <div className="card flex min-h-[22rem] flex-col">
-        <div className="flex-1 space-y-5 p-4 sm:p-5" aria-live="polite">
+        <div
+          className={`flex-1 p-4 sm:p-5 ${
+            messages.length === 0 && !busy ? 'grid place-items-center' : 'space-y-5'
+          }`}
+          aria-live="polite"
+        >
           {messages.length === 0 && !busy ? (
             <p className="py-10 text-center text-sm text-muted">Ask something about your material, for example “Summarise the main argument of chapter 2.”</p>
           ) : null}
