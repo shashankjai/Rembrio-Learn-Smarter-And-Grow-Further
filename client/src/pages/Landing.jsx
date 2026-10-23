@@ -61,7 +61,7 @@ export default function Landing() {
   return (
     <>
       <section className="overflow-hidden border-b border-line bg-canvas">
-        <div className="container-page grid max-w-7xl items-center gap-8 py-10 sm:py-14 lg:grid-cols-[0.94fr_1.06fr] lg:gap-8 lg:py-12 xl:gap-12">
+        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 grid items-center gap-6 pt-0 pb-6 sm:pt-1 sm:pb-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-6 lg:pt-1 lg:pb-8 xl:gap-8 xl:pt-1 xl:pb-10">
           <div className="relative z-10">
             <p className="hero-item eyebrow inline-flex items-center gap-2" style={{ '--hero-delay': '0ms' }}>
               <span className="size-2 rounded-full bg-secondary" aria-hidden="true" />
@@ -76,7 +76,7 @@ export default function Landing() {
                 </svg>
               </span>
             </h1>
-            <p className="hero-item mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8" style={{ '--hero-delay': '180ms' }}>
+            <p className="hero-item mt-6 max-w-xl xl:max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8" style={{ '--hero-delay': '180ms' }}>
               Upload your study PDFs, ask questions, and get answers that point back to the exact page. Then turn the same material into quizzes and a study plan.
             </p>
             <div className="hero-item mt-7 flex flex-wrap gap-3" style={{ '--hero-delay': '270ms' }}>
@@ -92,7 +92,7 @@ export default function Landing() {
               Works with text-based PDFs. Scanned, image-only PDFs are not supported yet.
             </p>
           </div>
-          <div className="hero-art relative aspect-[1.15/1] w-full max-w-[500px] lg:max-w-[530px] overflow-hidden ml-auto mr-0 justify-self-end" aria-hidden="false">
+          <div className="hero-art relative aspect-[1.44/1] w-full max-w-[620px] lg:max-w-[740px] xl:max-w-[820px] overflow-hidden ml-auto mr-0 justify-self-end" aria-hidden="false">
             <img
               className="hero-art-image mix-blend-multiply"
               src="/images/rembrio-hero.png"
@@ -114,8 +114,8 @@ export default function Landing() {
               [CalendarCheck, 'Study plans'],
               [ChartColumn, 'Progress tracking'],
             ].map(([Icon, label]) => (
-              <li key={label} className="flex min-h-16 items-center gap-2.5 px-3 py-4 text-xs font-medium text-ink sm:justify-center sm:px-2 sm:text-sm">
-                <Icon className="size-4 shrink-0 text-secondary" aria-hidden="true" />
+              <li key={label} className="flex min-h-16 items-center gap-3 px-3 py-4 text-sm font-semibold text-ink sm:justify-center sm:px-3 sm:text-base">
+                <Icon className="size-5 shrink-0 text-secondary" aria-hidden="true" />
                 <span>{label}</span>
               </li>
             ))}
